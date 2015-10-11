@@ -76,6 +76,30 @@ var http = require('http');
 var express = require('express');
 var app = express();
 
+var MongoClient = require('mongodb').MongoClient;
+var db;
+
+var dbURL = 'mongodb://' + process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' + process.env.OPENSHIFT_MONGODB_DB_PASSWORD +
+    '@' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME ;
+if(process.env.OPENSHIFT_MONGODB_DB_USERNAME || process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+    dbURL = 'mongodb://' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME ;
+}
+
+//var dbURL = "mongodb://localhost:27017/integration_test";
+
+console.log(dbURL);
+
+// Initialize connection once
+MongoClient.connect(dbURL, function (err, database) {
+    if (err) throw err;
+
+    db = database;
+
+    // Start the application after the database connection is ready
+    //app.listen(3000);
+    console.log("connected to the DB");
+});
+
 app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('ip', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
 
