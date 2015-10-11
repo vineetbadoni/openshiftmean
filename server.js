@@ -1,6 +1,6 @@
 /**
  * Module dependencies.
- */
+ *//*
 
 
 var express = require('express')
@@ -70,9 +70,8 @@ app.get('/angularview', angularview.angularview);
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
-});
+});*/
 
-/*
 var http = require('http');
 var express = require('express');
 var app = express();
@@ -110,4 +109,4 @@ http.createServer(app).listen(app.get('port'), app.get('ip'), function(){
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
-});*/
+});
